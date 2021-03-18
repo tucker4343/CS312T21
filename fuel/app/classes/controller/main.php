@@ -6,7 +6,7 @@ class Controller_Project extends Controller_Template
 	{
         $data = array();
 		$this->template->title= 'Home Page';
-		$this->template->content = View::forge('eastwest/index',$data);
+		$this->template->content = View::forge('pages/index',$data);
         $this->template->css = 'default.css';
 	}
 
@@ -15,7 +15,7 @@ class Controller_Project extends Controller_Template
         $data = array();
         $this->template->title= 'About';
         $this->template->css= 'default.css';
-        $this->template->content = View::forge('eastwest/east/index.php',$data);
+        $this->template->content = View::forge('pages/about/index.php',$data);
 	}
 
 
@@ -24,6 +24,6 @@ class Controller_Project extends Controller_Template
         $data = array();
         $this->template->title= 'Color';
         $this->template->css= 'default.css';
-        $this->template->content = View::forge('eastwest/west/index.php',$data);
+        $this->template->content = View::forge('pages/color/index.php',$data);
 	}
 }
