@@ -1,13 +1,14 @@
 <?php
-class Controller_Project extends Controller_Template
+class Controller_M1 extends Controller_Template
 {
+	public $template = 'template2';
 
 	public function action_index()
 	{
         $data = array();
 		$this->template->title= 'Home Page';
+		$this->template->content = View::forge('m1/index',$data);
         $this->template->css = 'default.css';
-		$this->template->content = View::forge('pages/index',$data);
 	}
 
 	public function action_about()
@@ -15,7 +16,7 @@ class Controller_Project extends Controller_Template
         $data = array();
         $this->template->title= 'About';
         $this->template->css= 'default.css';
-        $this->template->content = View::forge('pages/about/index.php',$data);
+        $this->template->content = View::forge('m1/about/index.php',$data);
 	}
 
 
@@ -24,6 +25,6 @@ class Controller_Project extends Controller_Template
         $data = array();
         $this->template->title= 'Color';
         $this->template->css= 'default.css';
-        $this->template->content = View::forge('pages/color/index.php',$data);
+        $this->template->content = View::forge('m1/color/index.php',$data);
 	}
 }
