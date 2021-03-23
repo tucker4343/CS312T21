@@ -6,8 +6,8 @@ class Controller_Project extends Controller_Template
 	{
         $data = array();
 		$this->template->title= 'Home Page';
-		$this->template->content = View::forge('pages/index',$data);
         $this->template->css = 'default.css';
+		$this->template->content = View::forge('pages/index',$data);
 	}
 
 	public function action_about()
