@@ -25,6 +25,13 @@ class Controller_M1 extends Controller_Template
         $data = array();
         $this->template->title= 'Color';
         $this->template->css= 'default.css';
-        $this->template->content = View::forge('m1/color/index.php',$data);
+		$this->template->content = View::forge('m1/color/index.php',$data);
 	}
+
+	public function action_printable(){
+		$data = array();
+		return Response::forge(View::forge("m1/printable/index.php", $data));
+	}
+
+
 }
