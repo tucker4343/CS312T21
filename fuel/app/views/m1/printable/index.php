@@ -24,8 +24,12 @@
             echo "<table style='width:85%'>";
             for ($i = 0; $i < $colorNum; $i++){
                 echo "<tr><td style='width:20%'>";
-                    echo"$color1";
-                echo "</td><td style='width:80%'></td></tr>";
+                    $colorConcat = 'color' . $i;
+                    $colorIndexIGuess = $_POST[$colorConcat];
+                    echo"$colorArray[$colorIndexIGuess]";
+                    
+                    $tempList = $_POST['longRowForm' . $i];
+                echo "</td><td style='width:80%'>$tempList</td></tr>";
             }
             echo "</table>";
             

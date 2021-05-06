@@ -14,9 +14,9 @@
 <body>
     <header>
         <ul>
-            <li><a href="https://cs.colostate.edu:4444/~cayce/m1/index/m1">Home</a></li>
-            <li><a href="https://cs.colostate.edu:4444/~cayce/m1/index/m1/about/">About</a></li>
-            <li><a href="https://cs.colostate.edu:4444/~cayce/m1/index/m1/color/">Color</a></li>
+            <li><a href="https://cs.colostate.edu:4444/~cayce/m2/index/m1">Home</a></li>
+            <li><a href="https://cs.colostate.edu:4444/~cayce/m2/index/m1/about/">About</a></li>
+            <li><a href="https://cs.colostate.edu:4444/~cayce/m2/index/m1/color/">Color</a></li>
         </ul>
     </header>
 

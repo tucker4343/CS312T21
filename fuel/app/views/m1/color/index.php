@@ -1,3 +1,19 @@
+<html lang="en">
+    <style>
+        .red {background-color: red;}
+        .orange {background-color: orange;}
+        .yellow {background-color: yellow;}
+        .green {background-color: green;}
+        .teal {background-color: teal;}
+        .blue {background-color: blue;}
+        .purple {background-color: purple;}
+        .gray {background-color: gray;}
+        .brown {background-color: brown;}
+        .black {background-color: black;}
+    </style>
+</html>
+
+
 <body>
     <header>
         Welcome to the Color page
@@ -5,7 +21,7 @@
     <main>
         
         <?php
-
+            $alphaBet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
             $colorNum = 0;
             $rowCol = 0;
 
@@ -61,21 +77,27 @@
                     $colorNum = $_POST['colorNum'];
                     
 
-                    echo "<form action='https://cs.colostate.edu:4444/~cayce/m1/index.php/m1/printable/' method = 'POST' target='_blank'>";
+                    echo "<form action='https://cs.colostate.edu:4444/~cayce/m2/index.php/m1/printable/' method = 'POST' target='_blank'>";
                     echo "<table style='width:85%'>";
                     for ($i = 0; $i < $colorNum; $i++){
                         echo "<tr><td style='width:20%'>";
-                        echo "<select id='color$i' name='color$i'>";
+                        echo "<select name='color$i' id='color$i'>";
                             for ($j = 0; $j < 10; $j++){
                                 $colorType = $colorArray[$j];
                                 if ($i == $j){
-                                    echo "<option id='colorOption' name='color$i' value='$j' selected>$colorType</option>";
+                                    echo "<option value='$j' selected>$colorType</option>";
                                 }else{
-                                    echo "<option id='colorOption' name='color$i' value='$j'>$colorType</option>";
+                                    echo "<option value='$j'>$colorType</option>";
                                 }
                             }   
                         echo "</select>";
-                        echo "</td><td style='width:80%'></td></tr>";
+                        if ($i == 0){
+                            echo "<input type='radio' name='colorRadio' id='radio$i' value='$i' checked>";
+                        }else{
+                            echo "<input type='radio' name='colorRadio' id='radio$i' value='$i'>";
+                        }
+                        echo "</td><td style='width:80%' id='longRow$i'></td></tr>";
+                        echo "<input type='hidden' name='longRowForm$i' id='longRowForm$i' value=' '>";
                     }
                     echo "</table>";
                     
@@ -85,16 +107,19 @@
                     for ($j = 0; $j < $rowCol; $j++){
                         echo "<td>$alphaBet[$j]</td>";
                     }
-                    for ($i = 1; $i < $rowCol+1; $i++){
+                    for ($i = 0; $i < $rowCol; $i++){
                         echo "<tr>";
-                        echo "<td>$i</td>";
+                        $val = $i+1;
+                        echo "<td>$val</td>";
                         for ($j = 0; $j < $rowCol; $j++){
-                            echo "<td></td>";
+                            $letter = $alphaBet[$j];
+                            $number = $i+1;
+                            echo "<td name='$letter$number' id='$i-$j' onclick='mainClick($i,$j)'></td>";
                         }
                         echo "</tr>";
                     }
                     echo "</table>";
-                    
+
                     echo "<input type='hidden' name='test' value='b'>";
                     echo "<input type='hidden' name='colorNum' value='$colorNum'>";
                     echo "<input type='hidden' name='rowCol' value='$rowCol'>";
@@ -114,6 +139,8 @@
         ?>
         <script type='text/javascript'>
 
+            let colorArray = ['red', 'orange', 'yellow', 'green', 'teal', 'blue', 'purple', 'gray', 'brown', 'black'];
+
             var selectedOptions = [];
             <?php for ($j = 0; $j < $colorNum; $j++){?>
                 selectedOptions.push(parseInt($("#color<?=$j;?> option:selected").val()));
@@ -125,13 +152,24 @@
                 }
             <?php } ?>
 
+            <?php for ($l = 0; $l < $colorNum; $l++){?>
+                $("#color<?=$l;?> option:selected").prop("disabled", false);
+            <?php } ?>
+
             $(function(){
-                <?php
                 //$colorKey = array( 0 => 'red', 1 =>  'orange', 2 => 'yellow', 3 => 'green', 4 => 'teal', 5 => 'blue', 6 => 'purple', 7 => 'grey', 8 => 'brown', 9 => 'black');
+                
+
+                <?php
                 for($i = 0; $i < $colorNum; $i++){ ?>
                     $("#color<?=$i;?>").change(function(){
                         //alert('changed');
                         $("select option").prop("disabled", false);
+
+                        for (let l = 0; l < 10; l++){ // Change all cells to right color
+                            var selectedColor = ($("#color" + l).val());
+                            $(".radioCheck" + l).removeClass().addClass(colorArray[selectedColor]).addClass("radioCheck" + l);
+                        }
 
                         var selectedOptions = [];
                         <?php for ($j = 0; $j < $colorNum; $j++){?>
@@ -144,9 +182,32 @@
                             }
                         <?php } ?>
 
+                        <?php for ($l = 0; $l < $colorNum; $l++){?>
+                            $("#color<?=$l;?> option:selected").prop("disabled", false);
+                        <?php } ?>
                     });
                 <?php } ?>
             });
+
+            function mainClick(x,y){
+                //alert('changed' + y + ',' + x);
+                var radioIndex = ($('input[name=colorRadio]:checked').val());
+                //alert(radioIndex);
+                var selectedColor = ($("#color" + radioIndex).val());
+                //alert(selectedColor);
+                $("#" + x + "-" + y).removeClass().addClass(colorArray[selectedColor]).addClass("radioCheck" + radioIndex);
+
+                for (let i = 0; i < 10; i++){
+                    var values = [];
+                    $(".radioCheck" + i).each(function(){
+                        values += $(this).attr("name");
+                        values += ", ";
+                    });
+                    
+                    $('#longRow' + i).html(values);
+                    $('#longRowForm' + i).attr('value', values);
+                }
+            }
         </script>
 
     </main>
